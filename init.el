@@ -100,6 +100,10 @@
 (use-package window
   :bind ("M-o" . other-window))
 
+(use-package vc-hooks
+  :no-require t
+  :custom (vc-follow-symlinks t))
+
 (use-package modus-themes
   :straight t
   :custom
