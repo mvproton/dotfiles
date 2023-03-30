@@ -12,7 +12,7 @@
 (use-package emacs
   :init
   (setq-default indent-tabs-mode nil
-		            truncate-lines t
+                truncate-lines t
                 inhibit-startup-screen t
                 ring-bell-function 'ignore
                 eval-expression-print-level nil
