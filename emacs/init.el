@@ -1,6 +1,5 @@
 ;;; init.el --- Main configuration file -*- lexical-binding: t; no-byte-compile: t -*-
 
-
 (use-package straight)
 (use-package delight :straight t)
 
@@ -74,6 +73,12 @@
          ("M-g C". "Χ")
          ("M-g Y". "Ψ")
          ("M-g W". "Ω")))
+
+(use-package startup
+  :no-require t
+  :custom
+  (user-mail-address "mvproton@gmail.com")
+  (user-full-name "Maks"))
 
 (use-package simple
   :no-require t
@@ -269,3 +274,20 @@ lisp-modes mode.
   :init (setq markdown-command "multimarkdown")
   :bind (:map markdown-mode-map
               ("C-c C-e" . markdown-do)))
+
+(use-package smtpmail
+  :defer t
+  :custom
+  (smtpmail-default-smtp-server "smtp.gmail.com")
+  (smtpmail-smtp-server "smtp.gmail.com")
+  (smtpmail-smtp-service 587))
+
+(use-package message
+  :defer t
+  :custom
+  (message-send-mail-function 'smtpmail-send-it))
+
+(use-package sendmail
+  :defer t
+  :custom
+  (send-mail-function 'smtpmail-send-it))
