@@ -240,7 +240,7 @@ lisp-modes mode.
   :mode (("\\.pp\\'" . pascal-mode))
   :custom
   (pascal-indent-level 2)
-  (pascal-auto-lineup '(declaration case)))
+  (pascal-auto-lineup nil))
 
 (use-package sgml-mode
   :defer t
