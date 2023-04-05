@@ -11,6 +11,7 @@
 (use-package emacs
   :init
   (setq-default indent-tabs-mode nil
+                tab-width 4
                 truncate-lines t
                 inhibit-startup-screen t
                 ring-bell-function 'ignore
@@ -241,6 +242,11 @@ lisp-modes mode.
   :custom
   (pascal-indent-level 2)
   (pascal-auto-lineup nil))
+
+(use-package opascal
+  :defer t
+  :custom
+  (opascal-indent-level 2))
 
 (use-package sgml-mode
   :defer t
