@@ -214,7 +214,8 @@ lisp-modes mode.
   :defer t
   :hook (((cider-repl-mode cider-mode) . eldoc-mode)
          (cider-repl-mode . common-lisp-modes-mode))
-  :bind (("M-RET" . cider-pprint-eval-last-sexp))
+  :bind (:map cider-mode-map
+              ("M-RET" . cider-inspect-last-result))
   :config (setq cider-print-fn 'fipp))
 
 (use-package puni
