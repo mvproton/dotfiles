@@ -216,7 +216,21 @@ lisp-modes mode.
          (cider-repl-mode . common-lisp-modes-mode))
   :bind (:map cider-mode-map
               ("M-RET" . cider-inspect-last-result))
-  :config (setq cider-print-fn 'fipp))
+  :custom
+  (cider-save-file-on-load nil)
+  (cider-print-fn 'fipp)
+  (cider-repl-display-help-banner nil))
+
+(use-package clj-refactor
+  :straight t
+  :defer t
+  :hook ((clj-refactor-mode . yas-minor-mode)
+         (cider-mode . clj-refactor-mode))
+  :config
+  (cljr-add-keybindings-with-prefix "C-c C-m")
+  :custom
+  (cljr-magic-requires nil)
+  (cljr-add-ns-to-blank-clj-files nil))
 
 (use-package puni
   :straight t
@@ -226,7 +240,8 @@ lisp-modes mode.
               ("M-r" . puni-raise)
               ("M-(" . puni-wrap-round)
               ("M-[" . puni-wrap-square)
-              ("M-{" . puni-wrap-curly)))
+              ("M-{" . puni-wrap-curly)
+              ("M-s" . puni-splice)))
 
 (use-package elisp-mode
   :defer t
