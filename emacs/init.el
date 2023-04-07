@@ -118,7 +118,8 @@
   (modus-themes-region '(bg-only no-extend))
   (modus-themes-completions '((matches . (intense bold))
                               (selection . (intense))))
-  (modus-operandi-palette-overrides '((bg-main "#fbfcfd")
+  (modus-operandi-palette-overrides '((bg-main "#fbfbfb")
+                                      (string "#702f00")
                                       (bg-paren-match "#d2d2d2")))
   (modus-vivendi-palette-overrides '((bg-main "#181818")))
   (modus-themes-mode-line '(borderless))
@@ -340,4 +341,5 @@ lisp-modes mode.
       (other-window -1)))
   :bind ( :map sly-mode-map
           ("C-c C-j" . eval-last-sexp-in-mrepl)
-          ("C-c M-;" . sly-eval-print-last-expression)))
+          ("C-c M-;" . sly-eval-print-last-expression)
+          ("C-c C-q" . sly-quit-lisp)))
