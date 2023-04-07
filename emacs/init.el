@@ -219,7 +219,11 @@ lisp-modes mode.
   :custom
   (cider-save-file-on-load nil)
   (cider-print-fn 'fipp)
-  (cider-repl-display-help-banner nil))
+  (cider-repl-display-help-banner nil)
+  (nrepl-hide-special-buffers t)
+  (cider-allow-jack-in-without-project t)
+  (cider-font-lock-dynamically '(macro deprecated var))
+  (cljr-suppress-no-project-warning t))
 
 (use-package clj-refactor
   :straight t
@@ -313,3 +317,27 @@ lisp-modes mode.
   :defer t
   :custom
   (send-mail-function 'smtpmail-send-it))
+
+(use-package sly
+  :defer t
+  :straight t
+  :hook ((sly-mode . common-lisp-modes-mode))
+  :custom
+  (inferior-lisp-program "/home/mx/.local/bin/sbcl")
+  :preface
+  (defun eval-last-sexp-in-mrepl ()
+    (interactive)
+    (let* ((sexp-end (point))
+           (_ (backward-sexp))
+           (sexp-begin (point))
+           (sexp (buffer-substring-no-properties sexp-begin sexp-end)))
+      (goto-char sexp-end)
+      (other-window 1)
+      (sly-mrepl #'switch-to-buffer)
+      (goto-char (point-max))
+      (insert sexp)
+      (sly-mrepl-return)
+      (other-window -1)))
+  :bind ( :map sly-mode-map
+          ("C-c C-j" . eval-last-sexp-in-mrepl)
+          ("C-c M-;" . sly-eval-print-last-expression)))
