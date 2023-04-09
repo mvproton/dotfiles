@@ -104,7 +104,16 @@
   (fset 'yes-or-no-p 'y-or-n-p))
 
 (use-package window
-  :bind ("M-o" . other-window))
+  :bind (("M-o" . other-window)
+         ("M-p" . scroll-up-n-lines)
+         ("M-n" . scroll-down-n-lines))
+  :config
+  (defun scroll-up-n-lines ()
+    (interactive)
+    (scroll-up 3))
+  (defun scroll-down-n-lines ()
+    (interactive)
+    (scroll-down 3)))
 
 (use-package vc-hooks
   :no-require t
@@ -246,7 +255,9 @@ lisp-modes mode.
               ("M-(" . puni-wrap-round)
               ("M-[" . puni-wrap-square)
               ("M-{" . puni-wrap-curly)
-              ("M-s" . puni-splice)))
+              ("M-s" . puni-splice)
+              ("C-)" . puni-slurp-forward)
+              ("C-(" . puni-slurp-backward)))
 
 (use-package elisp-mode
   :defer t
