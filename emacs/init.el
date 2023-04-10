@@ -225,7 +225,8 @@ lisp-modes mode.
   :hook (((cider-repl-mode cider-mode) . eldoc-mode)
          (cider-repl-mode . common-lisp-modes-mode))
   :bind (:map cider-mode-map
-              ("M-RET" . cider-inspect-last-result))
+              ("M-RET" . cider-inspect-last-result)
+              ("C-c M-;" . cider-pprint-eval-last-sexp-to-comment))
   :custom
   (cider-save-file-on-load nil)
   (cider-print-fn 'fipp)
@@ -241,7 +242,7 @@ lisp-modes mode.
   :hook ((clj-refactor-mode . yas-minor-mode)
          (cider-mode . clj-refactor-mode))
   :config
-  (cljr-add-keybindings-with-prefix "C-c C-m")
+  (cljr-add-keybindings-with-prefix "C-c C-n")
   :custom
   (cljr-magic-requires nil)
   (cljr-add-ns-to-blank-clj-files nil))
@@ -261,7 +262,11 @@ lisp-modes mode.
 
 (use-package elisp-mode
   :defer t
-  :hook ((emacs-lisp-mode . common-lisp-modes-mode)))
+  :hook ((emacs-lisp-mode . common-lisp-modes-mode))
+  :bind ( :map emacs-lisp-mode-map
+          ("C-c C-m" . pp-macroexpand-last-sexp)
+          :map lisp-interaction-mode-map
+          ("C-c C-m" . pp-macroexpand-last-sexp)))
 
 (use-package asm-mode
   :defer t
