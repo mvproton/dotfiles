@@ -359,3 +359,17 @@ lisp-modes mode.
           ("C-c C-j" . eval-last-sexp-in-mrepl)
           ("C-c M-;" . sly-eval-print-last-expression)
           ("C-c C-q" . sly-quit-lisp)))
+
+(use-package geiser-guile
+  :defer t
+  :straight t
+  :hook ((geiser-mode . common-lisp-modes-mode))
+  :custom
+  (geiser-guile-binary (executable-find "guile")))
+
+(use-package geiser-racket
+  :defer t
+  :straight t
+  :hook ((geiser-mode . common-lisp-modes-mode))
+  :custom
+  (geiser-racket-binary (executable-find "racket")))
