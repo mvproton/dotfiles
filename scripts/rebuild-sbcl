@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+cd ~/data/sources/sbcl \
+    && sh clean.sh \
+    && sh make.sh --fancy --prefix="$HOME/.local" \
+    && cd ./tests && sh run-tests.sh \
+    && cd ../doc/manual && make && cd ../.. \
+    && unset SBCL_HOME \
+    && sh install.sh

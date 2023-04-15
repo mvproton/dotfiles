@@ -1,0 +1,13 @@
+#!/usr/bin/env bb
+
+(require '[babashka.curl :as curl])
+(require '[cheshire.core :as json])
+
+(-> (curl/get "https://api.ipify.org?format=json")
+    :body
+    (json/parse-string true)
+    :ip
+    println)
+
+
+

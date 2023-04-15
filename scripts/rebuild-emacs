@@ -1,0 +1,18 @@
+#!/usr/bin/env bash
+
+cd ~/data/sources/emacs \
+    && make distclean \
+    && ./autogen.sh \
+    && env CFLAGS="-O3 -march=native" ./configure \
+           --prefix="$HOME/.local" \
+           --without-compress-install \
+           --with-native-compilation \
+           --with-json \
+           --without-ns \
+           --without-x \
+           --with-pgtk \
+           --with-imagemagick \
+           --with-tree-sitter \
+    && make -j$(($(nproc) / 2)) NATIVE_FULL_AOT=1 \
+    && make uninstall \
+    && make install
