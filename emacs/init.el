@@ -275,13 +275,14 @@ lisp-modes mode.
 
 (use-package pascal-mode
   :defer t
-  :mode (("\\.pp\\'" . pascal-mode))
+  ;:mode (("\\.pp\\'" . pascal-mode))
   :custom
   (pascal-indent-level 2)
   (pascal-auto-lineup nil))
 
 (use-package opascal
   :defer t
+  :mode (("\\.pas\\'" . opascal-mode))
   :custom
   (opascal-indent-level 2))
 
