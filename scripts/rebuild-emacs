@@ -13,6 +13,10 @@ cd ~/data/sources/emacs \
            --with-pgtk \
            --with-imagemagick \
            --with-tree-sitter \
-    && make -j$(($(nproc) / 2)) NATIVE_FULL_AOT=1 \
-    && make uninstall \
-    && make install
+    && make -j$(($(nproc) / 2)) NATIVE_FULL_AOT=1
+
+if [ -f "$(which emacs)" ]; then
+        make uninstall
+fi
+
+make install
