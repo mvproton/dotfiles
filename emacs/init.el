@@ -136,7 +136,11 @@
   :init
   (load-theme 'modus-operandi t)
   :config
-  (set-face-attribute 'default nil :font "Fira Code")
+  (set-face-attribute 'default nil :font "Fira Code" :height
+                      (if (string-match-p (regexp-quote "laptop")
+                                          (system-name))
+                          120
+                        113))
   (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
   :bind ("<f5>" . modus-themes-toggle))
 
