@@ -187,12 +187,17 @@
   (provide 'functions))
 
 (use-package vertico
-  :straight (vertico :type git :host github :repo "minad/vertico")
+  :straight t
   :load-path "straight/repos/vertico/extensions/"
   :bind (:map vertico-map
               ("M-RET" . vertico-exit-input))
   :init
-  (vertico-mode))
+  (vertico-mode)
+  (define-advice completion-hilit-commonality
+      (:filter-return (highlighted-completions) fix-improper-lists)
+    (unless (proper-list-p highlighted-completions)
+      (setcdr (last highlighted-completions) nil))
+    highlighted-completions))
 
 (use-package dired
   :custom
