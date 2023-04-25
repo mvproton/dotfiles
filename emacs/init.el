@@ -84,13 +84,24 @@
 (use-package simple
   :no-require t
   :bind (("C-M-y" . clipboard-yank)
-         ("C-x M-c" . put-file-name-to-clipboard))
+         ("C-x M-c" . put-file-name-to-clipboard)
+         ("C-," . duplicate-line))
+  :custom
+  (blink-matching-delay 0)
+  (blink-matching-paren t)
   :config
   (defun put-file-name-to-clipboard ()
     (interactive)
     (let ((file-name (buffer-file-name)))
       (when file-name
-        (kill-new file-name)))))
+        (kill-new file-name))))
+  (defun duplicate-line ()
+    (interactive)
+    (move-beginning-of-line 1)
+    (kill-line)
+    (yank)
+    (newline)
+    (yank)))
 
 (use-package cus-edit
   :custom
@@ -173,15 +184,10 @@
   (defun edit-early-init-file ()
     (interactive)
     (find-file (expand-file-name "early-init.el" user-emacs-directory)))
-  (defun memoize (fn)
-    (let ((memo (make-hash-table :test 'equal)))
-      (lambda (&rest args)
-        (let ((value (gethash args memo)))
-          (or value (puthash args (apply fn args) memo))))))
   (provide 'functions))
 
 (use-package vertico
-  :straight t
+  :straight (vertico :type git :host github :repo "minad/vertico")
   :load-path "straight/repos/vertico/extensions/"
   :bind (:map vertico-map
               ("M-RET" . vertico-exit-input))
@@ -269,8 +275,10 @@ lisp-modes mode.
   :hook ((emacs-lisp-mode . common-lisp-modes-mode))
   :bind ( :map emacs-lisp-mode-map
           ("C-c C-m" . pp-macroexpand-last-sexp)
+          ("C-c C-c" . eval-region)
           :map lisp-interaction-mode-map
-          ("C-c C-m" . pp-macroexpand-last-sexp)))
+          ("C-c C-m" . pp-macroexpand-last-sexp)
+          ("C-c C-c" . eval-region)))
 
 (use-package asm-mode
   :defer t
@@ -319,7 +327,7 @@ lisp-modes mode.
   :defer t
   :straight t
   :mode ("README\\.md\\'" . gfm-mode)
-  :init (setq markdown-command "multimarkdown")
+  :init (setq markdown-command "pandoc")
   :bind (:map markdown-mode-map
               ("C-c C-e" . markdown-do)))
 
