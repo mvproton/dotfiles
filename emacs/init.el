@@ -193,11 +193,13 @@
               ("M-RET" . vertico-exit-input))
   :init
   (vertico-mode)
-  (define-advice completion-hilit-commonality
-      (:filter-return (highlighted-completions) fix-improper-lists)
-    (unless (proper-list-p highlighted-completions)
-      (setcdr (last highlighted-completions) nil))
-    highlighted-completions))
+  (when (string-equal emacs-repository-branch "master")
+    (message "Fixing completion-hilit-commonality for working with vertico...")
+    (define-advice completion-hilit-commonality
+        (:filter-return (highlighted-completions) fix-improper-lists)
+      (unless (proper-list-p highlighted-completions)
+        (setcdr (last highlighted-completions) nil))
+      highlighted-completions)))
 
 (use-package dired
   :custom
