@@ -1,9 +1,16 @@
 #!/usr/bin/env bash
 
+# Required: libzstd-dev
+# Add to ~/.profile:
+# export SBCL_HOME="$HOME/.local/lib/sbcl"
+
 cd ~/data/sources/sbcl \
     && sh clean.sh \
     && sh make.sh --fancy --prefix="$HOME/.local" \
     && cd ./tests && sh run-tests.sh \
     && cd ../doc/manual && make && cd ../.. \
+    && rm /home/mx/.local/bin/sbcl \
+    && rm -rf /home/mx/.local/lib/sbcl \
+    && rm /home/mx/.local/share/man/man1/sbcl.1 \
     && unset SBCL_HOME \
     && sh install.sh
