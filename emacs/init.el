@@ -227,7 +227,9 @@ lisp-modes mode.
 
 (use-package clojure-mode
   :straight t
-  :hook ((clojure-mode clojurec-mode clojurescript-mode) . common-lisp-modes-mode))
+  :hook ((clojure-mode clojurec-mode clojurescript-mode) . common-lisp-modes-mode)
+  :custom
+  (clojure-indent-style 'always-indent))
 
 (use-package cider
   :straight t
@@ -317,11 +319,11 @@ lisp-modes mode.
 
 (use-package esh-mode
   :defer t
-  :config
-  ;; (defalias 'll "ls -la $*")
-  ;; (defalias 'aa "echo 'TEST'")
-  ;; Сделать так что бы при установке записывались алиасы.
-  )
+  :init
+  (defun eshell-add-aliases ()
+    (dolist (al '(("ll" "ls -la $*")))
+      (add-to-list 'eshell-command-aliases-list al)))
+  :hook ((eshell-post-command . eshell-add-aliases)))
 
 (use-package markdown-mode
   :defer t
