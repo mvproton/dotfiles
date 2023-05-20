@@ -321,7 +321,8 @@ lisp-modes mode.
   :defer t
   :init
   (defun eshell-add-aliases ()
-    (dolist (al '(("ll" "ls -la $*")))
+    (dolist (al '(("ll" "ls -la $*")
+                  ("fasm" "fasm.x64 $*")))
       (add-to-list 'eshell-command-aliases-list al)))
   :hook ((eshell-post-command . eshell-add-aliases)))
 
@@ -373,7 +374,10 @@ lisp-modes mode.
   :bind ( :map sly-mode-map
           ("C-c C-j" . eval-last-sexp-in-mrepl)
           ("C-c M-;" . sly-eval-print-last-expression)
-          ("C-c C-q" . sly-quit-lisp)))
+          ("C-c C-q" . sly-quit-lisp)
+          :map sly-editing-mode-map
+          ("M-p" . nil)
+          ("M-n" . nil)))
 
 (use-package geiser-guile
   :defer t
@@ -388,3 +392,7 @@ lisp-modes mode.
   :hook ((geiser-mode . common-lisp-modes-mode))
   :custom
   (geiser-racket-binary (executable-find "racket")))
+
+(use-package gdb-mi
+  :custom
+  (gdb-many-windows t))
