@@ -396,3 +396,13 @@ lisp-modes mode.
 (use-package gdb-mi
   :custom
   (gdb-many-windows t))
+
+(use-package js-comint
+  :after js
+  :straight t)
+
+(use-package js
+  :defer t
+  :bind ( :map js-mode-map
+          ("C-c C-e" . #'js-comint-send-last-sexp)
+          ("C-c C-r" . #'js-comint-send-region)))
