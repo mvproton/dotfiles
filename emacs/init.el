@@ -12,6 +12,7 @@
   :init
   (setq-default indent-tabs-mode nil
                 tab-width 4
+                debug-on-error t
                 truncate-lines t
                 inhibit-startup-screen t
                 ring-bell-function 'ignore
@@ -102,6 +103,15 @@
     (yank)
     (newline)
     (yank)))
+
+(use-package virtual-auto-fill
+  :defer t
+  :straight (virtual-auto-fill
+             :type git
+             :host github
+             :repo "luisgerhorst/virtual-auto-fill")
+  :hook ((text-mode . virtual-auto-fill-mode))
+  :mode (("\\.txt\\'" . text-mode)))
 
 (use-package cus-edit
   :custom
