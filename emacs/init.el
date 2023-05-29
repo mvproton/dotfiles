@@ -284,6 +284,10 @@ lisp-modes mode.
 
 (use-package asm-mode
   :defer t
+  :hook (asm-mode . unset-comment-char)
+  :config
+  (defun unset-comment-char ()
+    (local-unset-key (vector asm-comment-char)))
   :custom
   (tab-width 2))
 
