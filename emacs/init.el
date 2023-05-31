@@ -12,8 +12,9 @@
   :init
   (setq-default indent-tabs-mode nil
                 tab-width 4
+                fill-column 100
                 debug-on-error t
-                truncate-lines t
+                truncate-lines nil
                 inhibit-startup-screen t
                 ring-bell-function 'ignore
                 eval-expression-print-level nil
