@@ -13,7 +13,7 @@
   (setq-default indent-tabs-mode nil
                 tab-width 4
                 fill-column 100
-                debug-on-error t
+                debug-on-error nil
                 truncate-lines nil
                 inhibit-startup-screen t
                 ring-bell-function 'ignore
