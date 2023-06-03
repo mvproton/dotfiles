@@ -372,7 +372,7 @@ lisp-modes mode.
   :hook ((sly-mode . common-lisp-modes-mode))
   :custom
   (inferior-lisp-program "/home/mx/.local/bin/sbcl")
-  :preface
+  :config
   (defun eval-last-sexp-in-mrepl ()
     (interactive)
     (let* ((sexp-end (point))
