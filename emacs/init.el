@@ -420,4 +420,6 @@ lisp-modes mode.
   :defer t
   :bind ( :map js-mode-map
           ("C-c C-e" . #'js-comint-send-last-sexp)
-          ("C-c C-r" . #'js-comint-send-region)))
+          ("C-c C-r" . #'js-comint-send-region))
+  :custom
+  (js-indent-level 2))
