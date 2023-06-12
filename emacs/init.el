@@ -77,6 +77,11 @@
          ("M-g Y" . "Ψ")
          ("M-g W" . "Ω")))
 
+(use-package diff-mode
+  :defer t
+  :config
+  (keymap-unset diff-mode-shared-map "o"))
+
 (use-package startup
   :no-require t
   :custom
@@ -422,4 +427,5 @@ lisp-modes mode.
           ("C-c C-e" . #'js-comint-send-last-sexp)
           ("C-c C-r" . #'js-comint-send-region))
   :custom
-  (js-indent-level 2))
+  (js-indent-level 2)
+  (js-switch-indent-offset 2))
