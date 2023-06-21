@@ -423,9 +423,11 @@ lisp-modes mode.
 
 (use-package js
   :defer t
+  :hook ((js-mode . puni-mode))
   :bind ( :map js-mode-map
           ("C-c C-e" . #'js-comint-send-last-sexp)
-          ("C-c C-r" . #'js-comint-send-region))
+          ("C-c C-r" . #'js-comint-send-region)
+          ("C-c C-z" . #'js-comint-start-or-switch-to-repl))
   :custom
   (js-indent-level 2)
   (js-switch-indent-offset 2))
