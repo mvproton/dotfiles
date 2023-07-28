@@ -424,6 +424,8 @@ lisp-modes mode.
 (use-package js
   :defer t
   :hook ((js-mode . puni-mode))
+  :mode (("\\.js\\'"  . js-mode)
+         ("\\.mjs\\'" . js-mode))
   :bind ( :map js-mode-map
           ("C-c C-e" . #'js-comint-send-last-sexp)
           ("C-c C-r" . #'js-comint-send-region)
