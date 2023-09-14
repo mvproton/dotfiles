@@ -433,3 +433,14 @@ lisp-modes mode.
   :custom
   (js-indent-level 2)
   (js-switch-indent-offset 2))
+
+(use-package zig-mode
+  :defer t
+  :straight t
+  :mode ("\\.zig\\'" . zig-mode))
+
+(use-package go-mode
+  :defer t
+  :straight t
+  :mode ("\\.go\\'" . go-mode)
+  :bind (("M-." . #'godef-jump)))
