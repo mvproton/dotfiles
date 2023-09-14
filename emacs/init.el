@@ -443,4 +443,10 @@ lisp-modes mode.
   :defer t
   :straight t
   :mode ("\\.go\\'" . go-mode)
-  :bind (("M-." . #'godef-jump)))
+  :bind ( :map go-mode-map
+          ("M-." . #'godef-jump)
+          ("C-c C-d d" . #'godef-describe)
+          ("C-c C-d c" . #'godoc-at-point)
+          ("C-c C-d C-c" . #'godoc-at-point))
+  :config
+  (keymap-unset go-mode-map "C-c C-d"))
