@@ -203,6 +203,14 @@
   (defun edit-early-init-file ()
     (interactive)
     (find-file (expand-file-name "early-init.el" user-emacs-directory)))
+  (defun copy-backward-sexp ()
+    (interactive)
+    (let* ((sexp-end (point))
+           (_ (backward-sexp))
+           (sexp-begin (point))
+           (sexp (buffer-substring-no-properties sexp-begin sexp-end)))
+      (goto-char sexp-end)
+      sexp))
   (provide 'functions))
 
 (use-package vertico
@@ -251,13 +259,28 @@ lisp-modes mode.
   (clojure-indent-style 'always-indent))
 
 (use-package cider
-  :straight t
+  :straight ( :repo "mvproton/cider"
+              :fetcher github
+              :package "cider"
+              :type git
+              :local-repo "~/data/sources/cider")
   :defer t
   :hook (((cider-repl-mode cider-mode) . eldoc-mode)
          (cider-repl-mode . common-lisp-modes-mode))
-  :bind (:map cider-mode-map
-              ("M-RET" . cider-inspect-last-result)
-              ("C-c M-;" . cider-pprint-eval-last-sexp-to-comment))
+  :bind ( :map cider-mode-map
+          ("M-RET" . cider-inspect-last-result)
+          ("C-c M-;" . cider-pprint-eval-last-sexp-to-comment)
+          :map cider-insert-commands-map
+          ("C-j" . send-to-repl)
+          ("j" . send-to-repl))
+  :config
+  (defun send-to-repl ()
+    (interactive)
+    (let ((sexp (copy-backward-sexp)))
+      (cider-switch-to-repl-buffer)
+      (insert sexp)
+      (cider-repl-return)
+      (cider-switch-to-last-clojure-buffer)))
   :custom
   (cider-save-file-on-load nil)
   (cider-print-fn 'fipp)
