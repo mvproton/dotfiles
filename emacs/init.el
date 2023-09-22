@@ -23,7 +23,10 @@
                 hscroll-margin 0
                 warning-minimum-level :error
                 initial-scratch-message ";;; Scratch buffer\n\n"
-                default-input-method "russian-computer")
+                default-input-method "russian-computer"
+                frame-title-format
+                (list (format "%s@%s %%S: %%j " user-login-name (system-name))
+                      '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
   (setq ring-bell-function 'ignore
         enable-recursive-minibuffers t)
   :bind (("M-g a" . "α")
