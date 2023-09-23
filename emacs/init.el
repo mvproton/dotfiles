@@ -259,11 +259,7 @@ lisp-modes mode.
   (clojure-indent-style 'always-indent))
 
 (use-package cider
-  :straight ( :repo "mvproton/cider"
-              :fetcher github
-              :package "cider"
-              :type git
-              :local-repo "~/data/sources/cider")
+  :straight t
   :defer t
   :hook (((cider-repl-mode cider-mode) . eldoc-mode)
          (cider-repl-mode . common-lisp-modes-mode))
