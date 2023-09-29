@@ -252,6 +252,13 @@ lisp-modes mode.
     :keymap (make-sparse-keymap))
   (provide 'common-lisp-modes))
 
+(use-package eglot
+  :defer t
+  :no-require t
+  :custom
+  (eglot-autoshutdown t)
+  (eglot-extend-to-xref t))
+
 (use-package clojure-mode
   :straight t
   :hook ((clojure-mode clojurec-mode clojurescript-mode) . common-lisp-modes-mode)
