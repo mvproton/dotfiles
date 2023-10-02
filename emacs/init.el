@@ -149,30 +149,37 @@
   :no-require t
   :custom (vc-follow-symlinks t))
 
-(use-package modus-themes
-  :straight t
-  :custom
-  (modus-themes-org-blocks nil)
-  (modus-themes-syntax '(faint alt-syntax))
-  (modus-themes-region '(bg-only no-extend))
-  (modus-themes-completions '((matches . (intense bold))
-                              (selection . (intense))))
-  (modus-operandi-palette-overrides '((bg-main "#fbfbfb")
-                                      (string "#702f00")
-                                      (bg-paren-match "#d2d2d2")))
-  (modus-vivendi-palette-overrides '((bg-main "#181818")))
-  (modus-themes-mode-line '(borderless))
-  (modus-themes-fringes nil)
-  :init
-  (load-theme 'modus-operandi t)
-  :config
-  (set-face-attribute 'default nil :font "Fira Code" :height
-                      (if (string-match-p (regexp-quote "laptop")
-                                          (system-name))
-                          120
-                        113))
-  (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
-  :bind ("<f5>" . modus-themes-toggle))
+(when window-system
+  (use-package modus-themes
+    :straight t
+    :custom
+    (modus-themes-org-blocks nil)
+    (modus-themes-syntax '(faint alt-syntax))
+    (modus-themes-region '(bg-only no-extend))
+    (modus-themes-completions '((matches . (intense bold))
+                                (selection . (intense))))
+    (modus-operandi-palette-overrides '((bg-main "#fbfbfb")
+                                        (string "#702f00")
+                                        (bg-paren-match "#d2d2d2")))
+    (modus-vivendi-palette-overrides '((bg-main "#181818")))
+    (modus-themes-mode-line '(borderless))
+    (modus-themes-fringes nil)
+    :init
+    (load-theme 'modus-operandi t)
+    :config
+    (set-face-attribute 'default nil :font "Fira Code" :height
+                        (if (string-match-p (regexp-quote "laptop")
+                                            (system-name))
+                            120
+                          113))
+    (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
+    :bind ("<f5>" . modus-themes-toggle)))
+
+(unless window-system
+  (use-package gruber-darker-theme
+    :straight (gruber-darker-theme :type git :host github
+                                   :repo "rexim/gruber-darker-theme")
+    :init (load-theme 'gruber-darker t)))
 
 (use-package files
   :preface
@@ -311,11 +318,16 @@ lisp-modes mode.
   :bind (:map puni-mode-map
               ("M-r" . puni-raise)
               ("M-(" . puni-wrap-round)
-              ("M-[" . puni-wrap-square)
               ("M-{" . puni-wrap-curly)
               ("M-s" . puni-splice)
               ("C-)" . puni-slurp-forward)
               ("C-(" . puni-slurp-backward)))
+
+(use-package puni
+  :when window-system
+  :bind ( :map puni-mode-map
+          ;; doesn't work in terminal
+          ("M-[" . puni-wrap-square)))
 
 (use-package elisp-mode
   :defer t
