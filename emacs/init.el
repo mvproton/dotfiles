@@ -11,6 +11,8 @@
 (use-package emacs
   :init
   (setq-default indent-tabs-mode nil
+                display-line-numbers-mode t
+                display-line-numbers 'relative
                 tab-width 4
                 fill-column 100
                 debug-on-error nil
@@ -266,6 +268,16 @@ lisp-modes mode.
   (eglot-autoshutdown t)
   (eglot-extend-to-xref t))
 
+(use-package lsp-mode
+  :defer t
+  :straight t
+  :commands (lsp lsp-deferred)
+  :custom
+  (lsp-keymap-prefix "C-c l")
+  (lsp-ui-doc-show-with-mouse nil)
+  (lsp-lens-enable nil)
+  (lsp-completion-provider :none))
+
 (use-package clojure-mode
   :straight t
   :hook ((clojure-mode clojurec-mode clojurescript-mode) . common-lisp-modes-mode)
@@ -464,16 +476,29 @@ lisp-modes mode.
 
 (use-package js
   :defer t
-  :hook ((js-mode . puni-mode))
+  :hook ((js-mode . puni-mode)
+         (js-mode . lsp-deferred))
   :mode (("\\.js\\'"  . js-mode)
          ("\\.mjs\\'" . js-mode))
   :bind ( :map js-mode-map
           ("C-c C-e" . #'js-comint-send-last-sexp)
           ("C-c C-r" . #'js-comint-send-region)
-          ("C-c C-z" . #'js-comint-start-or-switch-to-repl))
+          ("C-c C-z" . #'js-comint-start-or-switch-to-repl)
+          ("M-." . #'lsp-find-definition))
   :custom
   (js-indent-level 2)
   (js-switch-indent-offset 2))
+
+(use-package typescript-mode
+  :defer t
+  :straight t
+  :hook ((typescript-mode . colorize-compilation-buffer)
+         (typescript-mode . lsp-deferred))
+  :mode ("\\.ts\\'" . typescript-mode)
+  :config
+  (require 'ansi-color)
+  (defun colorize-compilation-buffer ()
+    (ansi-color-apply-on-region compilation-filter-start (point-max))))
 
 (use-package zig-mode
   :defer t
