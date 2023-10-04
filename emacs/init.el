@@ -11,8 +11,6 @@
 (use-package emacs
   :init
   (setq-default indent-tabs-mode nil
-                display-line-numbers-mode t
-                display-line-numbers 'relative
                 tab-width 4
                 fill-column 100
                 debug-on-error nil
@@ -81,6 +79,12 @@
          ("M-g C" . "Χ")
          ("M-g Y" . "Ψ")
          ("M-g W" . "Ω")))
+
+(use-package display-line-numbers
+  :defer t
+  :hook (prog-mode . display-line-numbers-mode)
+  :custom
+  (display-line-numbers-type 'relative))
 
 (use-package diff-mode
   :defer t
