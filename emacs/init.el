@@ -252,6 +252,12 @@
               ("~" . dired-home-directory)
               ("q" . kill-dired-buffer)))
 
+(use-package yaml-mode
+  :straight t
+  :defer t
+  :bind ( :map yaml-mode-map
+          ("C-m" . newline-and-indent)))
+
 
 (use-package common-lisp-modes
   :delight common-lisp-modes-mode
@@ -280,7 +286,8 @@ lisp-modes mode.
   (lsp-keymap-prefix "C-c l")
   (lsp-ui-doc-show-with-mouse nil)
   (lsp-lens-enable nil)
-  (lsp-completion-provider :none))
+  (lsp-completion-provider :none)
+  (lsp-signature-render-documentation nil))
 
 (use-package clojure-mode
   :straight t
