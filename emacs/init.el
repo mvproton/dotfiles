@@ -181,11 +181,21 @@
     (set-face-attribute 'show-paren-match nil :weight 'extra-bold)
     :bind ("<f5>" . modus-themes-toggle)))
 
-(unless window-system
-  (use-package gruber-darker-theme
-    :straight (gruber-darker-theme :type git :host github
-                                   :repo "rexim/gruber-darker-theme")
-    :init (load-theme 'gruber-darker t)))
+(use-package gruber-darker-theme
+  :straight (gruber-darker-theme :type git :host github
+                                 :repo "rexim/gruber-darker-theme")
+  :defer t
+  :commands (load-gruber-theme)
+  :bind ("<f6>" . load-gruber-theme)
+  :init
+  (defun load-gruber-theme ()
+    (interactive)
+    (unload-themes)
+    (load-theme 'gruber-darker t)))
+
+(use-package gruber-darker-theme
+  :unless window-system
+  :init (load-theme 'gruber-darker t))
 
 (use-package files
   :preface
@@ -224,6 +234,17 @@
            (sexp (buffer-substring-no-properties sexp-begin sexp-end)))
       (goto-char sexp-end)
       sexp))
+  (defun unload-themes ()
+    (let ((theme-features (seq-filter (lambda (fn)
+                                (string-match-p ".*-themes?$" (symbol-name fn)))
+                              features))
+          (current-theme (car custom-enabled-themes)))
+      
+      (disable-theme current-theme)
+      (message "Disabling theme: %s" (symbol-name current-theme))
+      (dolist (ft theme-features)
+        (message "Unloading feature: %s" (symbol-name ft))
+        (unload-feature ft t))))
   (provide 'functions))
 
 (use-package vertico
@@ -364,6 +385,8 @@ lisp-modes mode.
 
 (use-package asm-mode
   :defer t
+  :mode (("\\.asm\\'" . asm-mode)
+         ("\\.inc\\'" . asm-mode))
   :hook (asm-mode . unset-comment-char)
   :config
   (defun unset-comment-char ()
