@@ -550,3 +550,5 @@ lisp-modes mode.
           ("C-c C-d C-c" . #'godoc-at-point))
   :config
   (keymap-unset go-mode-map "C-c C-d"))
+
+(use-package lua-mode :straight t :defer t)
