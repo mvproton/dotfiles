@@ -551,4 +551,8 @@ lisp-modes mode.
   :config
   (keymap-unset go-mode-map "C-c C-d"))
 
-(use-package lua-mode :straight t :defer t)
+(use-package lua-mode
+  :straight t
+  :defer t
+  :custom
+  (lua-indent-level 2))
