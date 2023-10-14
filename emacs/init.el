@@ -279,6 +279,11 @@
   :bind ( :map yaml-mode-map
           ("C-m" . newline-and-indent)))
 
+(use-package yasnippet
+  :straight t
+  :defer t
+  :config
+  (yas-reload-all))
 
 (use-package common-lisp-modes
   :delight common-lisp-modes-mode
@@ -302,6 +307,7 @@ lisp-modes mode.
 (use-package lsp-mode
   :defer t
   :straight t
+  :hook (lsp-mode . yas-minor-mode)
   :commands (lsp lsp-deferred)
   :custom
   (lsp-keymap-prefix "C-c l")
