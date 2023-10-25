@@ -562,3 +562,16 @@ lisp-modes mode.
   :defer t
   :custom
   (lua-indent-level 2))
+
+(use-package ggtags
+  :straight t
+  :defer t
+  :config
+  (keymap-unset ggtags-navigation-map "M-o")
+  (keymap-unset ggtags-navigation-map "M->")
+  (keymap-unset ggtags-navigation-map "M-<"))
+
+(use-package cc-mode
+  :defer t
+  :init
+  :hook (c-mode-common . ggtags-mode))
