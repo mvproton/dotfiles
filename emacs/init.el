@@ -101,7 +101,8 @@
   :no-require t
   :bind (("C-M-y" . clipboard-yank)
          ("C-x M-c" . put-file-name-to-clipboard)
-         ("C-," . duplicate-line))
+         ("C-," . duplicate-line)
+         ("C-." . copy-line))
   :custom
   (blink-matching-delay 0)
   (blink-matching-paren t)
@@ -117,7 +118,17 @@
     (kill-line)
     (yank)
     (newline)
-    (yank)))
+    (yank))
+  (defun copy-line()
+    (interactive)
+    (let ((prev-pos (point)))
+      (back-to-indentation)
+      (let* ((start (point))
+             (_ (end-of-line))
+             (end (point))
+             (selected-text (buffer-substring start end)))
+        (kill-new selected-text))
+      (goto-char prev-pos))))
 
 (use-package virtual-auto-fill
   :defer t
@@ -236,8 +247,8 @@
       sexp))
   (defun unload-themes ()
     (let ((theme-features (seq-filter (lambda (fn)
-                                (string-match-p ".*-themes?$" (symbol-name fn)))
-                              features))
+                                        (string-match-p ".*-themes?$" (symbol-name fn)))
+                                      features))
           (current-theme (car custom-enabled-themes)))
       
       (disable-theme current-theme)
@@ -282,8 +293,13 @@
 (use-package yasnippet
   :straight t
   :defer t
+  :bind ( :map yas-minor-mode-map
+          ("C-i C-n" . yas-insert-snippet)
+          ("C-i C-y" . yas-expand))
   :config
-  (yas-reload-all))
+  (yas-reload-all)
+  :custom
+  (yas-snippet-dirs '("~/.config/emacs/snippets")))
 
 (use-package common-lisp-modes
   :delight common-lisp-modes-mode
@@ -415,6 +431,7 @@ lisp-modes mode.
 
 (use-package sgml-mode
   :defer t
+  :hook (sgml-mode . yas-minor-mode)
   :bind-keymap
   ("C-c o" . facemenu-keymap)
   :config
