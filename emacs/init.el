@@ -439,6 +439,9 @@ lisp-modes mode.
 (use-package sgml-mode
   :defer t
   :hook (sgml-mode . yas-minor-mode)
+  :bind
+  ( :map html-mode-map
+    ("C-c C-b" . sgml-skip-tag-backward))
   :bind-keymap
   ("C-c o" . facemenu-keymap)
   :config
@@ -599,4 +602,7 @@ lisp-modes mode.
   :defer t
   :hook (c-mode-common . ggtags-mode))
 
-
+(use-package css-mode
+  :defer t
+  :custom
+  (css-indent-offset 2))
