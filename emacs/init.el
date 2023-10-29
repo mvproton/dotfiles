@@ -582,8 +582,12 @@ lisp-modes mode.
 (use-package lua-mode
   :ensure t
   :defer t
+  :bind ( :map lua-prefix-mode-map
+          ("C-e" . lua-send-current-line)
+          ("C-r" . lua-send-region))
   :custom
-  (lua-indent-level 2))
+  (lua-indent-level 2)
+  (lua-default-application "luajit"))
 
 (use-package ggtags
   :ensure t

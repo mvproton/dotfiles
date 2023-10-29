@@ -13,6 +13,10 @@
 (menu-bar-mode -1)
 (tool-bar-mode -1)
 
+;; Fix problem with gpg on Win10
+(when (memq system-type '(windows-nt))
+  (setq package-gnupghome-dir "~/.config/emacs/elpa/gnupg"))
+
 (require 'package)
 (add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
 (package-initialize)
