@@ -9,9 +9,12 @@
       message-log-max (* 1024 16) ; 16 kb
       inhibit-compacting-font-caches t)
 
-(scroll-bar-mode -1)
-(menu-bar-mode -1)
-(tool-bar-mode -1)
+(modify-all-frames-parameters
+ '((menu-bar-lines . 0)
+   (vertical-scroll-bars . nil)
+   (tool-bar-lines . 0)
+   (width . 128)
+   (height . 68)))
 
 ;; Fix problem with gpg on Win10
 (when (memq system-type '(windows-nt))
