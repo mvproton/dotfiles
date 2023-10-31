@@ -589,6 +589,8 @@ lisp-modes mode.
 (use-package lua-mode
   :ensure t
   :defer t
+  :mode (("\\.lua\\'" . lua-mode)
+         ("\\.rockspec\\'" . lua-mode))
   :bind ( :map lua-prefix-mode-map
           ("C-e" . lua-send-current-line)
           ("C-r" . lua-send-region))
