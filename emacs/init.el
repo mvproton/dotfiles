@@ -440,7 +440,8 @@ lisp-modes mode.
   :hook (sgml-mode . yas-minor-mode)
   :bind
   ( :map html-mode-map
-    ("C-c C-b" . sgml-skip-tag-backward))
+    ("C-c C-b" . sgml-skip-tag-backward)
+    ("C-c C-c d" . html-div))
   :bind-keymap
   ("C-c o" . facemenu-keymap)
   :config
