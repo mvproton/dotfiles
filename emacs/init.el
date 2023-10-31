@@ -332,9 +332,6 @@ lisp-modes mode.
 (use-package yasnippet
   :ensure t
   :defer t
-  :bind ( :map yas-minor-mode-map
-          ("C-i C-n" . yas-insert-snippet)
-          ("C-i C-y" . yas-expand))
   :config
   (yas-reload-all)
   :custom
