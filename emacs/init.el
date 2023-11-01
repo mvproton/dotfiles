@@ -597,8 +597,16 @@ lisp-modes mode.
   (lua-default-application "luajit"))
 
 (use-package ggtags
+  ;; Need to build and install ctags, GNU Global as described in ggtags doc
+  ;; Navigate through system includes:
+  ;; - mkdir  ~/.gtags && cd ~/.gtags
+  ;; - ln -s /usr/include usr-include
+  ;; - gtags -c
+  ;; Then update project's GTAGS
   :ensure t
   :defer t
+  :init
+  (setenv "GTAGSLIBPATH" (expand-file-name "~/.gtags"))
   :config
   (keymap-unset ggtags-navigation-map "M-o")
   (keymap-unset ggtags-navigation-map "M->")
