@@ -19,7 +19,6 @@
 (use-package gcmh
   :ensure t
   :preface
-  
   :hook (after-init . gcmh-mode)
   :delight gcmh-mode)
 
@@ -90,8 +89,6 @@
         (unload-feature ft t))))
   (provide 'functions))
 
-
-
 (use-package emacs
   :init
   (setq-default indent-tabs-mode nil
@@ -113,6 +110,8 @@
                       '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
   (setq ring-bell-function 'ignore
         enable-recursive-minibuffers t)
+  (put 'downcase-region 'disabled nil)
+  (put 'upcase-region 'disabled nil)
   :bind (("M-g a" . "α")
          ("M-g b" . "β")
          ("M-g g" . "γ")
