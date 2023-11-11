@@ -41,6 +41,7 @@
   (defvar auto-save-dir
     (expand-file-name ".cache/auto-save/" user-emacs-directory)
     "Directory to store auto-save files.")
+  :bind ("C-x C-S-f" . sudo-find-file)
   :custom
   (backup-by-copying t)
   (create-lockfiles nil)
@@ -62,6 +63,10 @@
 (use-package functions
   :defer t
   :preface
+  (defun sudo-find-file (file-name)
+    (interactive "Fsudo find-file: ")
+    (let ((tramp-file-name (concat "/sudo::" (expand-file-name file-name))))
+      (find-file tramp-file-name)))
   (defun edit-init-file ()
     (interactive)
     (find-file (expand-file-name "init.el" user-emacs-directory)))
@@ -619,3 +624,12 @@ lisp-modes mode.
   :defer t
   :custom
   (css-indent-offset 2))
+
+(use-package sql-indent
+  :ensure t
+  :defer t)
+
+(use-package sql
+  :defer t
+  :requires sql-indent
+  :hook (sql-mode . yas-minor-mode))
