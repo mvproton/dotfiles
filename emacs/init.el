@@ -547,8 +547,7 @@ lisp-modes mode.
 
 (use-package js
   :defer t
-  :hook ((js-mode . puni-mode)
-         (js-mode . lsp-deferred))
+  :hook (js-mode . puni-mode)
   :mode (("\\.js\\'"  . js-mode)
          ("\\.mjs\\'" . js-mode))
   :bind ( :map js-mode-map
@@ -633,3 +632,26 @@ lisp-modes mode.
   :defer t
   :requires sql-indent
   :hook (sql-mode . yas-minor-mode))
+
+(use-package sml-mode
+  :defer t
+  :ensure t
+  :custom
+  (sml-indent-level 2))
+
+(use-package merlin
+  :defer t
+  :load-path (lambda () (expand-file-name "~/data/sources/merlin/emacs"))  
+  :autoload merlin-mode  
+  :custom
+  (merlin-report-warnings t))
+
+(use-package caml
+  :defer t
+  :ensure t
+  :hook (caml-mode . merlin-mode))
+
+(use-package tuareg
+  :defer t
+  :ensure t
+  :hook (tuareg-mode . merlin-mode))
