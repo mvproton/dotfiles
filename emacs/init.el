@@ -114,7 +114,9 @@
                 (list (format "%s@%s %%S: %%j " user-login-name (system-name))
                       '(buffer-file-name "%f" (dired-directory dired-directory "%b"))))
   (setq ring-bell-function 'ignore
-        enable-recursive-minibuffers t)
+        enable-recursive-minibuffers t
+        treesit-language-source-alist
+        '((json "https://github.com/tree-sitter/tree-sitter-json")))
   (put 'downcase-region 'disabled nil)
   (put 'upcase-region 'disabled nil)
   :bind (("M-g a" . "α")
