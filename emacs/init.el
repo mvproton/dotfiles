@@ -225,6 +225,10 @@
   :unless window-system
   :init (load-theme 'gruber-darker t))
 
+(use-package corfu
+  :ensure t
+  :defer t)
+
 (use-package multiple-cursors
   :ensure t
   :bind (("C-S-c C-S-c" . mc/edit-lines)
@@ -349,6 +353,10 @@ lisp-modes mode.
   :custom
   (eglot-autoshutdown t)
   (eglot-extend-to-xref t))
+
+(use-package flycheck
+  :ensure t
+  :defer t)
 
 (use-package lsp-mode
   :defer t
@@ -563,14 +571,17 @@ lisp-modes mode.
 
 (use-package typescript-mode
   :defer t
-  :ensure t
+  :ensure t  
   :hook ((typescript-mode . colorize-compilation-buffer)
-         (typescript-mode . lsp-deferred))
+         (typescript-mode . lsp-deferred)
+         (typescript-mode . corfu-mode))
   :mode ("\\.ts\\'" . typescript-mode)
   :config
   (require 'ansi-color)
   (defun colorize-compilation-buffer ()
-    (ansi-color-apply-on-region compilation-filter-start (point-max))))
+    (ansi-color-apply-on-region compilation-filter-start (point-max)))
+  :custom
+  (typescript-indent-level 2))
 
 (use-package zig-mode
   :defer t
