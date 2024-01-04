@@ -116,7 +116,9 @@
   (setq ring-bell-function 'ignore
         enable-recursive-minibuffers t
         treesit-language-source-alist
-        '((json "https://github.com/tree-sitter/tree-sitter-json")))
+        '((json "https://github.com/tree-sitter/tree-sitter-json")
+          (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
+          (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")))
   (put 'downcase-region 'disabled nil)
   (put 'upcase-region 'disabled nil)
   :bind (("M-g a" . "α")
@@ -228,6 +230,12 @@
 (use-package corfu
   :ensure t
   :defer t)
+
+(use-package corfu-terminal
+  :vc ( :url "https://codeberg.org/akib/emacs-corfu-terminal.git"
+        :branch "master")
+  :unless window-system
+  :config (corfu-terminal-mode +1))
 
 (use-package multiple-cursors
   :ensure t
@@ -557,7 +565,8 @@ lisp-modes mode.
 
 (use-package js
   :defer t
-  :hook (js-mode . puni-mode)
+  :hook ((js-mode . puni-mode)
+         (js-mode . corfu-mode))
   :mode (("\\.js\\'"  . js-mode)
          ("\\.mjs\\'" . js-mode))
   :bind ( :map js-mode-map
@@ -654,7 +663,8 @@ lisp-modes mode.
 
 (use-package merlin
   :defer t
-  :load-path (lambda () (expand-file-name "~/data/sources/merlin/emacs"))  
+  :load-path (lambda () (expand-file-name "~/data/sources/merlin/emacs"))
+  :hook (merlin-mode . corfu-mode)
   :autoload merlin-mode  
   :custom
   (merlin-report-warnings t))
