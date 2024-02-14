@@ -491,12 +491,11 @@ lisp-modes mode.
 (use-package shell
   :defer t
   :config
+  ;; Old bindings
   ;;M-n							comint-next-input
-  ;; M-p							comint-previous-input
-  (keymap-unset shell-mode-map "M-o")
-  (keymap-unset shell-mode-map "M-n")
-
-  )
+  ;;M-p							comint-previous-input
+  (keymap-unset shell-mode-map "M-p")
+  (keymap-unset shell-mode-map "M-n"))
 
 (use-package markdown-mode
   :defer t
