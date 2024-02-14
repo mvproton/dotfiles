@@ -488,6 +488,16 @@ lisp-modes mode.
       (add-to-list 'eshell-command-aliases-list al)))
   :hook ((eshell-post-command . eshell-add-aliases)))
 
+(use-package shell
+  :defer t
+  :config
+  ;;M-n							comint-next-input
+  ;; M-p							comint-previous-input
+  (keymap-unset shell-mode-map "M-o")
+  (keymap-unset shell-mode-map "M-n")
+
+  )
+
 (use-package markdown-mode
   :defer t
   :ensure t
@@ -572,23 +582,17 @@ lisp-modes mode.
   :bind ( :map js-mode-map
           ("C-c C-e" . #'js-comint-send-last-sexp)
           ("C-c C-r" . #'js-comint-send-region)
-          ("C-c C-z" . #'js-comint-start-or-switch-to-repl)
+          ("C-c C-b" . #'js-comint-send-buffer)
+          ("C-c C-z" . #'js-comint-start-or-switch-to-repl)          
           ("M-." . #'lsp-find-definition))
   :custom
   (js-indent-level 2)
   (js-switch-indent-offset 2))
 
-(use-package typescript-mode
+(use-package typescript-ts-mode
   :defer t
-  :ensure t  
-  :hook ((typescript-mode . colorize-compilation-buffer)
-         (typescript-mode . lsp-deferred)
+  :hook ((typescript-mode . lsp-deferred)
          (typescript-mode . corfu-mode))
-  :mode ("\\.ts\\'" . typescript-mode)
-  :config
-  (require 'ansi-color)
-  (defun colorize-compilation-buffer ()
-    (ansi-color-apply-on-region compilation-filter-start (point-max)))
   :custom
   (typescript-indent-level 2))
 
