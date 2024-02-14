@@ -590,8 +590,9 @@ lisp-modes mode.
 
 (use-package typescript-ts-mode
   :defer t
-  :hook ((typescript-mode . lsp-deferred)
-         (typescript-mode . corfu-mode))
+  :mode (("\\.ts\\'" . typescript-ts-mode))
+  :hook ((typescript-ts-mode . lsp-deferred)
+         (typescript-ts-mode . corfu-mode))
   :custom
   (typescript-indent-level 2))
 
