@@ -118,7 +118,8 @@
         treesit-language-source-alist
         '((json "https://github.com/tree-sitter/tree-sitter-json")
           (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
-          (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")))
+          (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
+          (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")))
   (put 'downcase-region 'disabled nil)
   (put 'upcase-region 'disabled nil)
   :bind (("M-g a" . "α")
@@ -591,6 +592,7 @@ lisp-modes mode.
 (use-package typescript-ts-mode
   :defer t
   :mode (("\\.ts\\'" . typescript-ts-mode))
+  :init (defalias 'ts-mode 'typescript-ts-mode)
   :hook ((typescript-ts-mode . lsp-deferred)
          (typescript-ts-mode . corfu-mode))
   :custom
