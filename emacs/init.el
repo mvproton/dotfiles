@@ -81,17 +81,10 @@
            (sexp (buffer-substring-no-properties sexp-begin sexp-end)))
       (goto-char sexp-end)
       sexp))
-  (defun unload-themes ()
-    (let ((theme-features (seq-filter (lambda (fn)
-                                        (string-match-p ".*-themes?$" (symbol-name fn)))
-                                      features))
-          (current-theme (car custom-enabled-themes)))
-      
-      (disable-theme current-theme)
-      (message "Disabling theme: %s" (symbol-name current-theme))
-      (dolist (ft theme-features)
-        (message "Unloading feature: %s" (symbol-name ft))
-        (unload-feature ft t))))
+  (defun disable-themes ()
+    (dolist (theme custom-enabled-themes)
+      (disable-theme theme)
+      (message "Theme [%s] disabled" theme)))
   (provide 'functions))
 
 (use-package emacs
@@ -201,6 +194,7 @@
     (modus-themes-mode-line '(borderless))
     (modus-themes-fringes nil)
     :init
+    (disable-themes)
     (load-theme 'modus-operandi t)
     :config
     (set-face-attribute 'default nil :font "Fira Code" :height
@@ -221,7 +215,7 @@
   :init
   (defun load-gruber-theme ()
     (interactive)
-    (unload-themes)
+    (disable-themes)
     (load-theme 'gruber-darker t)))
 
 (use-package gruber-darker-theme
