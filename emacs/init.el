@@ -483,15 +483,6 @@ lisp-modes mode.
       (add-to-list 'eshell-command-aliases-list al)))
   :hook ((eshell-post-command . eshell-add-aliases)))
 
-(use-package shell
-  :defer t
-  :config
-  ;; Old bindings
-  ;;M-n							comint-next-input
-  ;;M-p							comint-previous-input
-  (keymap-unset shell-mode-map "M-p")
-  (keymap-unset shell-mode-map "M-n"))
-
 (use-package markdown-mode
   :defer t
   :ensure t
