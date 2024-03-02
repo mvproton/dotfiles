@@ -112,7 +112,8 @@
         '((json "https://github.com/tree-sitter/tree-sitter-json")
           (javascript "https://github.com/tree-sitter/tree-sitter-javascript" "master" "src")
           (typescript "https://github.com/tree-sitter/tree-sitter-typescript" "master" "typescript/src")
-          (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")))
+          (tsx "https://github.com/tree-sitter/tree-sitter-typescript" "master" "tsx/src")
+          (rust "https://github.com/tree-sitter/tree-sitter-rust" "master" "src")))
   (put 'downcase-region 'disabled nil)
   (put 'upcase-region 'disabled nil)
   :bind (("M-g a" . "α")
@@ -669,3 +670,9 @@ lisp-modes mode.
   :defer t
   :ensure t
   :hook (tuareg-mode . merlin-mode))
+
+(use-package rust-mode
+  :ensure t
+  :defer t
+  :init (setq rust-mode-treesitter-derive t)
+  :hook (rust-mode . lsp-deferred))
