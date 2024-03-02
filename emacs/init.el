@@ -85,6 +85,16 @@
     (dolist (theme custom-enabled-themes)
       (disable-theme theme)
       (message "Theme [%s] disabled" theme)))
+  (defun install-treesit-plugins ()
+    (let ((treesit-plugins-dir (concat user-emacs-directory "tree-sitter")))
+      (unless (file-exists-p treesit-plugins-dir)
+        (make-directory treesit-plugins-dir))
+      (dolist (plugin (mapcar #'car treesit-language-source-alist))
+        (let* ((plugin-file-name (concat "libtree-sitter-" (symbol-name plugin) ".so"))
+               (plugin-path (concat treesit-plugins-dir "/" plugin-file-name)))
+          (unless (file-exists-p plugin-path)
+            (treesit-install-language-grammar plugin)
+            (message "Tree-sitter plugin [%s] installed." plugin))))))
   (provide 'functions))
 
 (use-package emacs
@@ -165,7 +175,8 @@
          ("M-g J" . "Φ")
          ("M-g C" . "Χ")
          ("M-g Y" . "Ψ")
-         ("M-g W" . "Ω")))
+         ("M-g W" . "Ω"))
+  :config (install-treesit-plugins))
 
 (use-package window
   :bind (("M-o" . other-window)
@@ -181,7 +192,9 @@
 
 (when window-system
   (use-package modus-themes
-    :ensure t
+    :vc ( :url "https://github.com/protesilaos/modus-themes"
+          :branch "main"
+          :rev :newest)    
     :custom
     (modus-themes-org-blocks nil)
     (modus-themes-syntax '(faint alt-syntax))
@@ -195,7 +208,7 @@
     (modus-themes-mode-line '(borderless))
     (modus-themes-fringes nil)
     :init
-    (disable-themes)
+    ;; (disable-themes)
     (load-theme 'modus-operandi t)
     :config
     (set-face-attribute 'default nil :font "Fira Code" :height
@@ -472,7 +485,9 @@ lisp-modes mode.
 
 (use-package elpy
   :defer t
-  :ensure t
+  :vc ( :url "https://github.com/jorgenschaefer/elpy"
+        :branch "master"
+        :rev :newest)
   :init (advice-add 'python-mode :before 'elpy-enable))
 
 (use-package esh-mode
@@ -589,8 +604,10 @@ lisp-modes mode.
   (typescript-indent-level 2))
 
 (use-package zig-mode
-  :defer t
-  :ensure t
+  :defer t  
+  :vc ( :url "https://github.com/ziglang/zig-mode"
+        :branch "master"
+        :rev :newest)
   :mode ("\\.zig\\'" . zig-mode))
 
 (use-package go-mode
