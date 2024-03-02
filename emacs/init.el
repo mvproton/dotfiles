@@ -484,6 +484,10 @@ lisp-modes mode.
       (add-to-list 'eshell-command-aliases-list al)))
   :hook ((eshell-post-command . eshell-add-aliases)))
 
+(use-package sh-script
+  :defer t
+  :hook (sh-mode . yas-minor-mode))
+
 (use-package markdown-mode
   :defer t
   :ensure t

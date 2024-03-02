@@ -1,0 +1,5 @@
+# -*- mode: snippet -*-
+# name: bash-template
+# key: sh
+# --
+#!/usr/bin/env bash
