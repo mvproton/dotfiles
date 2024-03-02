@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+find ~/.config/emacs -mindepth 1 -maxdepth 1 \
+     ! -name 'snippets' \
+     ! -name 'custom.el' \
+     ! -name 'early-init.el' \
+     ! -name 'init.el' \
+     -exec rm -rf {} +
+
