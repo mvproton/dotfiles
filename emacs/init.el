@@ -42,6 +42,7 @@
     (expand-file-name ".cache/auto-save/" user-emacs-directory)
     "Directory to store auto-save files.")
   :bind ("C-x C-S-f" . sudo-find-file)
+  :hook (before-save . delete-trailing-whitespace)
   :custom
   (backup-by-copying t)
   (create-lockfiles nil)
