@@ -195,7 +195,7 @@
   (use-package modus-themes
     :vc ( :url "https://github.com/protesilaos/modus-themes"
           :branch "main"
-          :rev :newest)    
+          :rev :newest)
     :custom
     (modus-themes-org-blocks nil)
     (modus-themes-syntax '(faint alt-syntax))
@@ -509,6 +509,9 @@ lisp-modes mode.
   :ensure t
   :mode ("README\\.md\\'" . gfm-mode)
   :init (setq markdown-command "pandoc")
+  :config
+  (keymap-unset markdown-mode-map "M-p")
+  (keymap-unset markdown-mode-map "M-n")
   :bind (:map markdown-mode-map
               ("C-c C-e" . markdown-do)))
 
@@ -589,7 +592,7 @@ lisp-modes mode.
           ("C-c C-e" . #'js-comint-send-last-sexp)
           ("C-c C-r" . #'js-comint-send-region)
           ("C-c C-b" . #'js-comint-send-buffer)
-          ("C-c C-z" . #'js-comint-start-or-switch-to-repl)          
+          ("C-c C-z" . #'js-comint-start-or-switch-to-repl)
           ("M-." . #'lsp-find-definition))
   :custom
   (js-indent-level 2)
@@ -605,7 +608,7 @@ lisp-modes mode.
   (typescript-indent-level 2))
 
 (use-package zig-mode
-  :defer t  
+  :defer t
   :vc ( :url "https://github.com/ziglang/zig-mode"
         :branch "master"
         :rev :newest)
@@ -679,7 +682,7 @@ lisp-modes mode.
   :defer t
   :load-path (lambda () (expand-file-name "~/data/sources/merlin/emacs"))
   :hook (merlin-mode . corfu-mode)
-  :autoload merlin-mode  
+  :autoload merlin-mode
   :custom
   (merlin-report-warnings t))
 
@@ -695,7 +698,7 @@ lisp-modes mode.
 
 (use-package rustc
   :defer t
-  :vc ( :url "https://github.com/brotzeit/rustic" :branch "master")  
+  :vc ( :url "https://github.com/brotzeit/rustic" :branch "master")
   :mode ("\\.\\'" . rustc-mode)
   :init (setq rust-mode-treesitter-derive t)
   :hook ((rustic-mode . lsp-deferred)
