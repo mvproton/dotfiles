@@ -697,11 +697,13 @@ lisp-modes mode.
   :ensure t
   :hook (tuareg-mode . merlin-mode))
 
-(use-package rustc
+(use-package rustic
   :defer t
   :vc ( :url "https://github.com/brotzeit/rustic" :branch "master")
-  :mode ("\\.\\'" . rustc-mode)
+  :mode ("\\.rs\\'" . rustic-mode)
   :init (setq rust-mode-treesitter-derive t)
   :hook ((rustic-mode . lsp-deferred)
          (rustic-mode . corfu-mode)
-         (rustic-mode . puni-mode)))
+         (rustic-mode . puni-mode))
+  :custom
+  (rustic-analyzer-command '("rustup" "run" "stable" "rust-analyzer")))
