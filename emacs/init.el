@@ -601,10 +601,12 @@ lisp-modes mode.
 
 (use-package typescript-ts-mode
   :defer t
-  :mode (("\\.ts\\'" . typescript-ts-mode))
+  :mode (("\\.ts\\'" . typescript-ts-mode)
+         ("\\.tsx\\'" . tsx-ts-mode))
   :init (defalias 'ts-mode 'typescript-ts-mode)
   :hook ((typescript-ts-mode . lsp-deferred)
-         (typescript-ts-mode . corfu-mode))
+         (typescript-ts-mode . corfu-mode)
+         (tsx-ts-mode . corfu-mode))
   :custom
   (typescript-indent-level 2))
 
