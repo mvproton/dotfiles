@@ -1,0 +1,37 @@
+#!/usr/bin/env bash
+
+install_path=$HOME/local/llvm18-release
+source_dir=`expr match $(readlink -f $0) '\(.*/sources\)'`"/llvm-project-18"
+
+echo "Source path: "$source_dir
+
+if [ -d $source ]; then
+    cd $source_dir
+else
+    echo "llvm18 sources not found.";
+    exit -1;
+fi
+
+git clean -dfx
+if [ -d "build_release" ]; then
+    rm -rf build_release
+fi
+
+mkdir build-release
+echo "Build directory cleaned"
+cd build-release
+cmake ../llvm \
+  -DCMAKE_INSTALL_PREFIX=$install_path \
+  -DCMAKE_BUILD_TYPE=Release \
+  -DCMAKE_BUILD_PARALLEL_LEVEL=$(nproc) \
+  -DLLVM_ENABLE_PROJECTS="lld;clang" \
+  -DLLVM_ENABLE_LIBXML2=OFF \
+  -DLLVM_ENABLE_TERMINFO=OFF \
+  -DLLVM_ENABLE_LIBEDIT=OFF \
+  -DLLVM_ENABLE_ASSERTIONS=ON \
+  -DLLVM_PARALLEL_LINK_JOBS=1 \
+  -G Ninja
+
+rm -rf $install_path
+mkdir $install_path
+ninja install

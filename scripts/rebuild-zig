@@ -3,7 +3,7 @@
 install_path=$HOME/software/zig
 prev_path=`pwd`
 source_dir=`expr match $(readlink -f $0) '\(.*/sources\)'`"/zig"
-llvm_path=$HOME/local/llvm17-release
+llvm_path=$HOME/local/llvm18-release
 
 echo "LLVM path: $llvm_path"
 echo "zig source dir: $source_dir"
