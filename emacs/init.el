@@ -485,13 +485,6 @@ lisp-modes mode.
   :defer t
   :ensure t)
 
-(use-package elpy
-  :defer t
-  :vc ( :url "https://github.com/jorgenschaefer/elpy"
-        :branch "master"
-        :rev :newest)
-  :init (advice-add 'python-mode :before 'elpy-enable))
-
 (use-package esh-mode
   :defer t
   :init
