@@ -320,8 +320,8 @@ lisp-modes mode.
 
 (use-package puni
   :ensure t
-  :hook ((common-lisp-modes-mode . puni-mode)
-         (puni-mode . electric-pair-mode))
+  :hook ((common-lisp-modes-mode-hook . puni-mode)
+         (puni-mode-hook . electric-pair-local-mode))
   :bind (:map puni-mode-map
               ("M-r" . puni-raise)
               ("M-(" . puni-wrap-round)
