@@ -321,7 +321,7 @@ lisp-modes mode.
 
 (use-package puni
   :ensure t
-  :hook ((common-lisp-modes-mode-hook . puni-mode)
+  :hook (((common-lisp-modes-mode prog-mode sgml-mode) . puni-mode)
          (puni-mode-hook . electric-pair-local-mode))
   :bind (:map puni-mode-map
               ("M-r" . puni-raise)
@@ -579,8 +579,7 @@ lisp-modes mode.
 
 (use-package js
   :defer t
-  :hook ((js-mode . puni-mode)
-         (js-mode . corfu-mode))
+  :hook ((js-mode . corfu-mode))
   :mode (("\\.js\\'"  . js-mode)
          ("\\.mjs\\'" . js-mode))
   :bind ( :map js-mode-map
